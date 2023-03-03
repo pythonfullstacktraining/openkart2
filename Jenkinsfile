@@ -2,9 +2,11 @@
 
 pipeline {
 
+     agent any
+
 stages {
 
-        agent any
+       
 
         stage('CheckOutGit'){
 
