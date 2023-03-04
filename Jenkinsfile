@@ -46,6 +46,25 @@ stages {
         }
 
 
+        stage('Docker Build'){
+            steps{
+                script{
+                    def customImage = docker.build("rajivpythonfullstack/openkart_jenkins:${env.BUILD_ID}")
+                    echo "Pushing the image*************"
+
+                   withCredentials([usernamePassword(credentialsId: 'pythonfullstackdockerid', passwordVariable:'pythonfullstackdockeridPassword', usernameVariable:'pythonfullstackdockeridUser')])
+                   {
+                    sh "docker login -u ${env.pythonfullstackdockeridUser} -p ${env.pythonfullstackdockeridPassword}"
+                    sh "docker push rajivpythonfullstack/openkart_jenkins:${env.BUILD_ID}"
+                   }
+
+                }
+
+
+            }
+        }
+
+
 
 
 }
